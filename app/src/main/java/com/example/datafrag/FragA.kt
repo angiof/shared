@@ -9,37 +9,34 @@ import com.example.datafrag.databinding.FragmentFragABinding
 
 class FragA : Fragment() {
     lateinit var binding: FragmentFragABinding
-    lateinit var bundle: Bundle
     lateinit var fragB: FragB
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentFragABinding.inflate(layoutInflater)
-        val bundle = Bundle()
-        fragB = FragB()
-
 
 
         binding.btn.setOnClickListener {
 
-            bundle.putString("key", binding.editTextTextPersonName.text.toString())
-            fragB.arguments = bundle;
-
-            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, fragB)
-                ?.commit()
+            bundlerSet()
 
         }
 
         return binding.root
 
+
+    }
+
+    private fun bundlerSet() {
+        val bundleArgs = Bundle()
+        fragB = FragB()
+        bundleArgs.putString("key", binding.editTextTextPersonName.text.toString())
+        fragB.arguments = bundleArgs
+        fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, fragB)?.commit()
 
     }
 
